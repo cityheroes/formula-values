@@ -3,7 +3,7 @@ import CompiledExpression from './CompiledExpression';
 export default class DefaultValue extends CompiledExpression {
 
 	constructor(expression) {
-		super();
+		super([], '');
 
 		this.value = expression;
 	}
