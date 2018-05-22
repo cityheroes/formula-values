@@ -1,7 +1,7 @@
 import _ from 'underscore';
 import Helpers from './Helpers';
 
-const variableRegex = /\[(?!(?:@|\*|\d+)\]|[\.$])|^[^\[]*\]|\][^\[]*\]|[\{\}]|\][]|\][^\.\[]/;
+const INVALID_VARIABLE_REGEX = new RegExp(Helpers.patterns.invalidVariable);
 
 export default class Variable {
 
@@ -40,7 +40,7 @@ export default class Variable {
 			this._parsedVariable = 'null';
 		} else if (!this._hasContext) {
 			let parsedVariable = this._environment;
-			for (var i = 0, len = tempPath.length; i < len; i++) {
+			for (let i = 0, len = tempPath.length; i < len; i++) {
 				parsedVariable += '[\'' + tempPath[i] + '\']';
 			}
 			this._parsedVariable = parsedVariable;
@@ -75,7 +75,7 @@ export default class Variable {
 		let pathElement,
 			hasStarOperator = false,
 			parsedVariable = this._environment;
-		for (var i = 0, len = this._path.length; i < len; i++) {
+		for (let i = 0, len = this._path.length; i < len; i++) {
 			pathElement = this._path[i];
 			if (pathElement === '*') {
 				if (hasStarOperator) {
@@ -104,7 +104,7 @@ export default class Variable {
 	}
 
 	static isValid(text) {
-		return !variableRegex.test(text);
+		return !INVALID_VARIABLE_REGEX.test(text);
 	}
 
 }

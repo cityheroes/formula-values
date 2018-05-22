@@ -1,27 +1,29 @@
 import _ from 'underscore';
 import moment from 'moment';
 
-let getPath = (context) => {
+const ARRAY_REFERENCE_REGEX = /(.*)\[(@|\*|\d+)]/g;
+
+const getPath = (context) => {
 	if (!context) {
 		return [];
 	}
-	var toProcess = context.split(/\.|::/);
-	var path;
-	var processed = [];
-
-	// Use of .shift() was preferred over other iteration methods for performance reasons.
-	// check this test: https://jsperf.com/shift-vs-traditional-loop
-
-	while(toProcess.length > 0) {
-		var element = toProcess.shift();
-		element = element.replace(/(.*)\[(@|\*|\d+)]/g, function(completeField, field, arrayValue) {
+	let toProcess = context.split(/\.|::/),
+		processed = [],
+		processArray = (completeField, field, arrayValue) => {
 			processed.push(field);
 			if (arrayValue !== '@' && arrayValue !== '*') {
 				arrayValue = Number(arrayValue);
 			}
 			processed.push(arrayValue);
 			return '';
-		});
+		};
+
+	// Use of .shift() was preferred over other iteration methods for performance reasons.
+	// check this test: https://jsperf.com/shift-vs-traditional-loop
+	let element;
+	while(toProcess.length > 0) {
+		element = toProcess.shift();
+		element = element.replace(ARRAY_REFERENCE_REGEX, processArray);
 		if (element) {
 			processed.push(element);
 		}
@@ -29,17 +31,18 @@ let getPath = (context) => {
 	return processed;
 };
 
-let assignTo = (variable, path, index, value) => {
-	var pathRoute = getPath(path);
+const assignTo = (variable, path, index, value) => {
+	let pathRoute = getPath(path);
 	if ('undefined' !== typeof index) {
 		pathRoute.push(index);
 	}
+
+	let pathElement;
 	while (pathRoute.length) {
-		var pathElement = pathRoute.shift();
+		pathElement = pathRoute.shift();
 		if (pathRoute.length > 0) {
 			if (!variable[pathElement]) {
-				var nextPathElement = pathRoute[0];
-				if ('number' === typeof nextPathElement) {
+				if ('number' === typeof pathRoute[0]) {
 					variable[pathElement] = [];
 				} else {
 					variable[pathElement] = {};
@@ -52,14 +55,14 @@ let assignTo = (variable, path, index, value) => {
 	}
 };
 
-let compact = (variable, path) => {
-	var pathRoute = getPath(path);
+const compact = (variable, path) => {
+	let pathRoute = getPath(path),
+		pathElement;
 	while (pathRoute.length) {
-		var pathElement = pathRoute.shift();
+		pathElement = pathRoute.shift();
 		if (pathRoute.length > 0) {
 			if (!variable[pathElement]) {
-				var nextPathElement = pathRoute[0];
-				if ('number' === typeof nextPathElement) {
+				if ('number' === typeof pathRoute[0]) {
 					variable[pathElement] = [];
 				} else {
 					variable[pathElement] = {};
@@ -72,8 +75,8 @@ let compact = (variable, path) => {
 	}
 };
 
-let getDateTimeFormat = function(date) {
-	if (!date || typeof date !== 'string') {
+const getDateTimeFormat = (date) => {
+	if (!date || 'string' !== typeof date) {
 		return '';
 	}
 	switch (date.length) {
@@ -88,7 +91,7 @@ let getDateTimeFormat = function(date) {
 	}
 };
 
-let validateOperation = function(date1format, date2format, unit) {
+const validateOperation = (date1format, date2format, unit) => {
 	switch (unit) {
 		case 'years':
 		case 'months':
@@ -111,36 +114,37 @@ let validateOperation = function(date1format, date2format, unit) {
 	return true;
 };
 
-let evalWithSafeEnvironment = (function () {
+const evalWithSafeEnvironment = (function () {
 
-	var __availableSpecs = {
-		Y: 'years',
-		M: 'months',
-		W: 'weeks',
-		D: 'days',
-		h: 'hours',
-		m: 'minutes',
-		s: 'seconds',
-		years: 'years',
-		months: 'months',
-		weeks: 'weeks',
-		days: 'days',
-		hours: 'hours',
-		minutes: 'minutes',
-		seconds: 'seconds'
-	};
-	var __defaultSpec = 'seconds';
+	const __defaultSpec = 'seconds',
+		__availableSpecs = {
+			Y: 'years',
+			M: 'months',
+			W: 'weeks',
+			D: 'days',
+			h: 'hours',
+			m: 'minutes',
+			s: 'seconds',
+			years: 'years',
+			months: 'months',
+			weeks: 'weeks',
+			days: 'days',
+			hours: 'hours',
+			minutes: 'minutes',
+			seconds: 'seconds'
+		};
 
-	var __processStarOperator = function(array, path) {
+	const __processStarOperator = (array, path) => {
 		var result = [];
 		if (array && _.isArray(array) && array.length) {
-			for (var i = 0, len = array.length; i < len; i++) {
-				var value;
+			let value,
+				pushNestedElement = (nestedElement) => {
+					value.push(eval('nestedElement' + path));
+				};
+			for (let i = 0, len = array.length; i < len; i++) {
 				if (_.isArray(array[i])) {
 					value = [];
-					array[i].forEach(function(nestedElement) {
-						value.push(eval('nestedElement' + path));
-					});
+					array[i].forEach(pushNestedElement);
 				} else {
 					value = null;
 					try {
@@ -155,7 +159,7 @@ let evalWithSafeEnvironment = (function () {
 		return result;
 	};
 
-	function dateDiff(date1, date2, spec) {
+	const dateDiff = (date1, date2, spec) => {
 		let date1format = getDateTimeFormat(date1),
 			date2format = getDateTimeFormat(date2);
 		spec = __availableSpecs[spec] || __defaultSpec;
@@ -167,56 +171,52 @@ let evalWithSafeEnvironment = (function () {
 			console.warn('Invalid inputs at dateDiff.');
 			return null;
 		}
-	}
+	};
 
-	function sum(array) {
-		var total = 0;
+	const sum = (array) => {
+		let total = 0;
 		if (array && _.isArray(array) && array.length) {
-			for (var i = 0, len = array.length; i < len; i++) {
+			for (let i = 0, len = array.length; i < len; i++) {
 				if (array[i]) {
 					total += array[i];
 				}
 			}
 		}
 		return total;
-	}
+	};
 
-	function extract(text, separator, index) {
+	const extract = (text, separator, index) => {
 		text = 'string' === typeof text ? text : (text || '');
 		separator = separator || ',';
 		index = index || 0;
 
-		var extractedValue = text.split(separator)[index],
-			result = isNaN(extractedValue) ? extractedValue : Number(extractedValue);
+		let extractedValue = text.split(separator)[index];
 
-		return result;
-	}
+		return isNaN(extractedValue) ? extractedValue : Number(extractedValue);
+	};
 
-	function flatten(array, shallow) {
-		return _.flatten(array, shallow);
-	}
+	const flatten = _.flatten;
 
-	function groupConcat(array, separator) {
-		separator = typeof separator === 'undefined' ? ', ' : separator;
+	const groupConcat = (array, separator = ', ') => {
 		return array.join(separator);
-	}
+	};
 
 	function concat() {
 		var elements = Array.prototype.slice.call(arguments);
 		return elements.join('');
 	}
 
-	function count(array) {
+	const count = (array) => {
 		return array.length;
-	}
+	};
 
-	function avg(array) {
-		var total = sum(array);
+	const avg = (array) => {
+		let total = sum(array);
 		if (array && _.isArray(array) && array.length>0) {
-			total = total / array.length;
+			total /= array.length;
 		}
 		return total;
-	}
+	};
 
 	return function(formula, data, metaData) {
 		return eval(formula);
@@ -229,7 +229,9 @@ export default {
 	assignTo: assignTo,
 	compact: compact,
 	patterns: {
-		variable: '{{([^}]+)}}'
+		variable: '{{([^}]+)}}',
+		parsedExpression: '\\[\\*(\\d*)\\*\\]',
+		invalidVariable: '\\[(?!(?:@|\\*|\\d+)\\]|[\\.$])|^[^\\[]*\\]|\\][^\\[]*\\]|[\\{\\}]|\\][]|\\][^\\.\\[]'
 	},
 	dataVarName: 'data',
 	metaDataVarName: 'metaData',

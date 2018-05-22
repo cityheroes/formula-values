@@ -1,19 +1,20 @@
 import Variable from './Variable';
 import Helpers from './Helpers';
 
+const VARIABLE_REGEX = new RegExp(Helpers.patterns.variable, 'g');
+
 export default class CompiledExpression {
 
 	constructor(rules, expression) {
 		this._variables = [];
-
-		const variablesCache = {};
 
 		for(var i = 0, size = rules.length; i < size; i++) {
 			var rule = rules[i];
 			expression = expression.replace(new RegExp(rule.pattern, 'g'), rule.replacement);
 		}
 
-		this._parsedExpression = expression.replace(new RegExp(Helpers.patterns.variable, 'g'), (match, variableText) => {
+		const variablesCache = {};
+		this._parsedExpression = expression.replace(VARIABLE_REGEX, (match, variableText) => {
 			if (Variable.isValid(variableText)) {
 				if (!variablesCache[variableText]) {
 					variablesCache[variableText] = this._variables.length;

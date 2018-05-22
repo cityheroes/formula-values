@@ -4,7 +4,6 @@ export default class DefaultValue extends CompiledExpression {
 
 	constructor(expression) {
 		super([], '');
-
 		this.value = expression;
 	}
 

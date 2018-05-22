@@ -2,37 +2,41 @@ import Helpers from './Helpers';
 import CompiledExpression from './CompiledExpression';
 import Variable from './Variable';
 
-let rules = [
-	{
+const CLEANING_RULES = [{
 		pattern: '\'',
 		replacement: '\\\''
-	}
-];
-
-let variableRegexp = new RegExp(Helpers.patterns.variable);
+	}],
+	VARIABLE_REGEX = new RegExp(Helpers.patterns.variable),
+	PARSED_EXPRESSION_REGEX = new RegExp(Helpers.patterns.parsedExpression,'g');
 
 export default class ConcatenatedText extends CompiledExpression {
 
 	constructor(expression = '') {
-		super(rules, expression);
+		super(CLEANING_RULES, expression);
 	}
 
 	eval(data, metaData, context) {
 		let result = '';
 		try {
-			var contextPath = Helpers.getPath(context);
+			let contextPath = Helpers.getPath(context);
 
-			var parsedVariables = this._variables.map((variable) => {
+			let parsedVariables = this._variables.map((variable) => {
 				if (variable.hasStar()) {
 					return '';
 				} else {
-					return Helpers.evalWithSafeEnvironment(variable.parseVariable(contextPath), data, metaData);
+					return Helpers.evalWithSafeEnvironment(
+						variable.parseVariable(contextPath),
+						data,
+						metaData
+					);
 				}
 			});
 
-			result = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
-				return parsedVariables[parseInt(number)];
-			});
+			result = this._parsedExpression.replace(
+				PARSED_EXPRESSION_REGEX,
+				(match, number) => {
+					return parsedVariables[parseInt(number)];
+				});
 		} catch (error) {
 			console.warn(error);
 		}
@@ -44,7 +48,7 @@ export default class ConcatenatedText extends CompiledExpression {
 	}
 
 	static isConcatenatedText(expression) {
-		return 'string' === typeof expression && variableRegexp.test(expression) > -1;
+		return 'string' === typeof expression && VARIABLE_REGEX.test(expression) > -1;
 	}
 
 }

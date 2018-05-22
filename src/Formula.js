@@ -2,10 +2,7 @@ import CompiledExpression from './CompiledExpression';
 import Variable from './Variable';
 import Helpers from './Helpers';
 
-var dataVarName = 'data',
-	metaDataVarName = 'metaData';
-
-var rules = [
+var CLEANING_RULES = [
 	{
 		pattern: '^=',
 		replacement: ''
@@ -19,18 +16,14 @@ var rules = [
 export default class Formula extends CompiledExpression {
 
 	constructor(expression) {
-		super(rules, expression);
-	}
-
-	static isFormula(expression) {
-		return 'string' === typeof expression && expression.indexOf('=') === 0;
+		super(CLEANING_RULES, expression);
 	}
 
 	eval(data, metaData, context) {
 		let result = null;
 		try {
-			var contextPath = Helpers.getPath(context);
-			var parsedVariables = this._variables.map((variable) => {
+			let contextPath = Helpers.getPath(context);
+			let parsedVariables = this._variables.map((variable) => {
 				return variable.parseVariable(contextPath);
 			});
 			let resolvedParsedExpression = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
@@ -45,6 +38,10 @@ export default class Formula extends CompiledExpression {
 
 	getDependencies() {
 		return this._variables.map((fieldPath) => fieldPath.split('::').shift());
+	}
+
+	static isFormula(expression) {
+		return 'string' === typeof expression && expression.indexOf('=') === 0;
 	}
 
 }
