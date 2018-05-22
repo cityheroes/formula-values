@@ -14,11 +14,15 @@ export default class CompiledExpression {
 		}
 
 		this._parsedExpression = expression.replace(new RegExp(Helpers.patterns.variable, 'g'), (match, variableText) => {
-			if (!variablesCache[variableText]) {
-				variablesCache[variableText] = this._variables.length;
-				this._variables.push(new Variable(variableText));
+			if (Variable.isValid(variableText)) {
+				if (!variablesCache[variableText]) {
+					variablesCache[variableText] = this._variables.length;
+					this._variables.push(new Variable(variableText));
+				}
+				return '[*' + variablesCache[variableText] + '*]';
+			} else {
+				return '{{' + variableText + '}}';
 			}
-			return '[*' + variablesCache[variableText] + '*]';
 		});
 	}
 

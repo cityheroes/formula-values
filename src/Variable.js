@@ -1,18 +1,15 @@
 import _ from 'underscore';
 import Helpers from './Helpers';
 
-const variableRegex = /\[(?!(?:@|\*|\d+)\]|[\.$])|^[^\[]*\]|\][^\[]*\]|[\{\}]/;
+const variableRegex = /\[(?!(?:@|\*|\d+)\]|[\.$])|^[^\[]*\]|\][^\[]*\]|[\{\}]|\][]|\][^\.\[]/;
 
 export default class Variable {
 
 	constructor(text) {
 
-
-		if (variableRegex.test(text)) {
-			text = '';
-		}
-
 		this._hasContext = false;
+		this._hasStar = false;
+		this._hasAt = false;
 
 		let tempPath = Helpers.getPath(text);
 
@@ -23,6 +20,11 @@ export default class Variable {
 				tempPath[i] = tempPathElement;
 			} else {
 				this._hasContext = true;
+				if (tempPathElement === '*') {
+					this._hasStar = true;
+				} else if (tempPathElement === '@') {
+					this._hasAt = true;
+				}
 			}
 		}
 
@@ -91,6 +93,18 @@ export default class Variable {
 			parsedVariable += '")';
 		}
 		return parsedVariable;
+	}
+
+	hasStar() {
+		return this._hasStar;
+	}
+
+	hasAt() {
+		return this._hasAt;
+	}
+
+	static isValid(text) {
+		return !variableRegex.test(text);
 	}
 
 }

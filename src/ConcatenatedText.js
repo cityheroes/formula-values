@@ -9,24 +9,34 @@ let rules = [
 	}
 ];
 
+let variableRegexp = new RegExp(Helpers.patterns.variable);
+
 export default class ConcatenatedText extends CompiledExpression {
 
-	constructor(expression) {
+	constructor(expression = '') {
 		super(rules, expression);
 	}
 
 	eval(data, metaData, context) {
-		var contextPath = Helpers.getPath(context);
+		let result = '';
+		try {
+			var contextPath = Helpers.getPath(context);
 
-		var parsedVariables = this._variables.map((variable) => {
-			return Helpers.evalWithSafeEnvironment(variable.parseVariable(contextPath), data, metaData);
-		});
+			var parsedVariables = this._variables.map((variable) => {
+				if (variable.hasStar()) {
+					return '';
+				} else {
+					return Helpers.evalWithSafeEnvironment(variable.parseVariable(contextPath), data, metaData);
+				}
+			});
 
-		let resolvedParsedExpression = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
-			return parsedVariables[parseInt(number)];
-		});
-
-		return resolvedParsedExpression;
+			result = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
+				return parsedVariables[parseInt(number)];
+			});
+		} catch (error) {
+			console.warn(error);
+		}
+		return result;
 	}
 
 	getDependencies() {
@@ -34,7 +44,7 @@ export default class ConcatenatedText extends CompiledExpression {
 	}
 
 	static isConcatenatedText(expression) {
-		return 'string' === typeof expression && expression.indexOf(Helpers.variablePattern) > -1;
+		return 'string' === typeof expression && variableRegexp.test(expression) > -1;
 	}
 
 }

@@ -201,14 +201,19 @@ describe('PlastikCalculatorService', function() {
 
 	describe('#process Feature #2', function() {
 		testProcess('={{name}}', formData, null, null, 'Outside name');
+		testProcess('{{name}}', formData, null, null, 'Outside name');
+		testProcess('{{name}} is THE NAME', formData, null, null, 'Outside name is THE NAME');
 	});
 
 	describe('#process Feature #3', function() {
 		testProcess('={{custom.name}}', formData, null, null, 'Inside name');
+		testProcess('{{custom.name}}', formData, null, null, 'Inside name');
+		testProcess('{{custom.name}} is the Custom name!', formData, null, null, 'Inside name is the Custom name!');
 	});
 
 	describe('#process Feature #1, #2, #3', function() {
 		testProcess('={{custom.price}}*{{custom.quantity}}*(100+{{tax}})/100', formData, null, null, 46);
+		testProcess('{{custom.price}}*{{custom.quantity}}*(100+{{tax}})/100', formData, null, null, '20*2*(100+15)/100');
 	});
 
 	describe('#process Feature #4', function() {
@@ -225,7 +230,6 @@ describe('PlastikCalculatorService', function() {
 
 		testProcess('={{custom.workers[01].first_name}}', formData, null, null, 'Olene');
 
-		// This should be rejected
 		testProcess('={{custom.workers[4a].first_name}}', formData, null, null, null);
 		testProcess('={{custom.workers[a].first_name}}', formData, null, null, null);
 		testProcess('={{custom.workers[f234].first_name}}', formData, null, null, null);
@@ -235,6 +239,30 @@ describe('PlastikCalculatorService', function() {
 		testProcess('={{custom.workersa].first_name}}', formData, null, null, null);
 		testProcess('={{custom.workers23].first_name}}', formData, null, null, null);
 		testProcess('={{custom.workers[1].workers23].first_name}}', formData, null, null, null);
+
+
+		testProcess('{{custom.How many tasks were performed?}}', formData, null, null, '2');
+		testProcess('{{custom.How many tasks were}performed?}}', formData, null, null, '{{custom.How many tasks were}performed?}}');
+		testProcess('{{custom.How many tasks were{performed?}}', formData, null, null, '{{custom.How many tasks were{performed?}}');
+		testProcess('{{custom.How many tasks were[performed?}}', formData, null, null, '{{custom.How many tasks were[performed?}}');
+		testProcess('{{custom.How many tasks were]performed?}}', formData, null, null, '{{custom.How many tasks were]performed?}}');
+		testProcess("{{custom.How many tasks were'performed?}}", formData, null, null, '2');
+		testProcess('{{custom.How many tasks were\'performed?}}', formData, null, null, '2');
+		testProcess('{{custom.How many tasks were"performed?}}', formData, null, null, '2');
+		testProcess("{{custom.How many tasks were\"performed?}}", formData, null, null, '2');
+		testProcess('{{custom.How many tasks were,performed?}}', formData, null, null, '2');
+
+		testProcess('{{custom.workers[01].first_name}}', formData, null, null, 'Olene');
+
+		testProcess('{{custom.workers[4a].first_name}}', formData, null, null, '{{custom.workers[4a].first_name}}');
+		testProcess('{{custom.workers[a].first_name}}', formData, null, null, '{{custom.workers[a].first_name}}');
+		testProcess('{{custom.workers[f234].first_name}}', formData, null, null, '{{custom.workers[f234].first_name}}');
+		testProcess('{{custom.workers[a.first_name}}', formData, null, null, '{{custom.workers[a.first_name}}');
+		testProcess('{{custom.workers[a]sdf.first_name}}', formData, null, null, '{{custom.workers[a]sdf.first_name}}');
+		testProcess('{{custom.workers[1]sdf.first_name}}', formData, null, null, '{{custom.workers[1]sdf.first_name}}');
+		testProcess('{{custom.workersa].first_name}}', formData, null, null, '{{custom.workersa].first_name}}');
+		testProcess('{{custom.workers23].first_name}}', formData, null, null, '{{custom.workers23].first_name}}');
+		testProcess('{{custom.workers[1].workers23].first_name}}', formData, null, null, '{{custom.workers[1].workers23].first_name}}');
 	});
 
 	describe('#process Feature #5', function() {
@@ -248,6 +276,17 @@ describe('PlastikCalculatorService', function() {
 		testProcess('={{test"custom.How many tasks were performed?}}', formData, null, null, 2);
 		testProcess("={{test\"custom.How many tasks were performed?}}", formData, null, null, 2);
 		testProcess('={{test,custom.How many tasks were performed?}}', formData, null, null, 2);
+
+		testProcess('{{test custom.How many tasks were performed?}}', formData, null, null, '2');
+		testProcess('{{test}custom.How many tasks were performed?}}', formData, null, null, '{{test}custom.How many tasks were performed?}}');
+		testProcess('{{test{custom.How many tasks were performed?}}', formData, null, null, '{{test{custom.How many tasks were performed?}}');
+		testProcess('{{test[custom.How many tasks were performed?}}', formData, null, null, '{{test[custom.How many tasks were performed?}}');
+		testProcess('{{test]custom.How many tasks were performed?}}', formData, null, null, '{{test]custom.How many tasks were performed?}}');
+		testProcess("{{test'custom.How many tasks were performed?}}", formData, null, null, '2');
+		testProcess('{{test\'custom.How many tasks were performed?}}', formData, null, null, '2');
+		testProcess('{{test"custom.How many tasks were performed?}}', formData, null, null, '2');
+		testProcess("{{test\"custom.How many tasks were performed?}}", formData, null, null, '2');
+		testProcess('{{test,custom.How many tasks were performed?}}', formData, null, null, '2');
 	});
 
 	describe('#process Feature #13 with normal unit names', function() {
@@ -503,6 +542,8 @@ describe('PlastikCalculatorService', function() {
 		testProcess('=dateDiff({{custom.date6}},{{custom.date4}},"seconds")', formData, null, null, null);
 		testProcess('=dateDiff({{custom.date6}},{{custom.date5}},"seconds")', formData, null, null, null);
 		testProcess('=dateDiff({{custom.date6}},{{custom.date6}},"seconds")', formData, null, null, 0);
+
+		testProcess('dateDiff({{custom.date6}},{{custom.date6}},"seconds")', formData, null, null, 'dateDiff(20:32:42,20:32:42,"seconds")');
 	});
 
 	describe('#process Feature #13 with alias unit names', function () {
@@ -769,20 +810,36 @@ describe('PlastikCalculatorService', function() {
 		testProcess('={{custom.workers[@].workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', 'Lorraine');
 
 		testProcess('={{unexistent context.workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', null);
+
+		testProcess('{{custom.workers[@].first_name}}', formData, null, 'custom.workers[1].first_name', 'Olene');
+		testProcess('{{custom.workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', 'Olene');
+		testProcess('{{custom.workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', 'Olene');
+		testProcess('{{custom.workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', 'Olene');
+		testProcess('{{custom.workers[@].workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', 'Lorraine');
+
+		testProcess('{{unexistent context.workers[@].first_name}}', formData, null, 'custom.workers[1].workers[0].workers[0].first_name', '');
 	});
 
 	describe('#process Feature 7', function() {
 		testProcess('={{custom.workers[1].first_name}}', formData, null, null, 'Olene');
+
+		testProcess('{{custom.workers[1].first_name}}', formData, null, null, 'Olene');
 	});
 
 	describe('#process Feature 8', function() {
 		testProcess('={{custom.products[*].quantity}}', formData, null, null, [5, 10, 15, 20, 25]);
 		testProcess('={{custom.products[*].product}}', formData, null, null, ['Product 1','Product 2','Product 3','Product 4','Product 5']);
+
+		testProcess('{{custom.products[*].quantity}}', formData, null, null, '');
+		testProcess('{{custom.products[*].product}}', formData, null, null, '');
 	});
 
 	describe('#process Feature 9', function() {
 		testProcess('=sum({{custom.products[*].quantity}})', formData, null, null, 75);
 		testProcess('=avg({{custom.products[*].quantity}})', formData, null, null, 15);
+
+		testProcess('sum({{custom.products[*].quantity}})', formData, null, null, 'sum()');
+		testProcess('avg({{custom.products[*].quantity}})', formData, null, null, 'avg()');
 	});
 
 	describe('#proces Feature 14', function() {
@@ -831,6 +888,15 @@ describe('PlastikCalculatorService', function() {
 		testProcess('={{custom.product::price}}*(1-{{custom.product::info.promos[2].discount}})*{{custom.quantity}}', formData, formMetaData, null, 285);
 		testProcess('={{custom.product::info.promos[*].discount}}', formData, formMetaData, null, [0.25, 0.1, 0.05, 0.01]);
 		testProcess('=avg({{custom.product::info.promos[*].discount}})', formData, formMetaData, null, 0.1025);
+
+		testProcess('{{custom.product::price}}*{{custom.quantity}}', formData, formMetaData, null, '20*15');
+		testProcess('{{custom.product::info.inventoryId}}', formData, formMetaData, null, '15388');
+		testProcess('{{custom.product::info.location}}', formData, formMetaData, null, 'Estante 4');
+		testProcess('{{custom.product::price}}*(1-{{custom.product::info.promos[0].discount}})*{{custom.quantity}}', formData, formMetaData, null, '20*(1-0.25)*15');
+		testProcess('{{custom.product::price}}*(1-{{custom.product::info.promos[1].discount}})*{{custom.quantity}}', formData, formMetaData, null, '20*(1-0.1)*15');
+		testProcess('{{custom.product::price}}*(1-{{custom.product::info.promos[2].discount}})*{{custom.quantity}}', formData, formMetaData, null, '20*(1-0.05)*15');
+		testProcess('{{custom.product::info.promos[*].discount}}', formData, formMetaData, null, '');
+		testProcess('avg({{custom.product::info.promos[*].discount}})', formData, formMetaData, null, 'avg()');
 	});
 
 	describe('#process Feature 18', function() {
@@ -856,6 +922,8 @@ describe('PlastikCalculatorService', function() {
 		testProcess('=extract({{custom.compositeData1}},"|",10)', formData, formMetaData, null, 0);
 		testProcess('=extract({{custom.compositeData1}},"|",11)', formData, formMetaData, null, 0);
 		testProcess('=extract({{custom.compositeData1}},"|",12)', formData, formMetaData, null, undefined);
+
+		testProcess('extract({{custom.compositeData1}},"|",12)', formData, formMetaData, null, 'extract(328516028|5407|383401700074490|18/10/2017|12.00|12.00|25-33-9F-1A-C5|791638|0|0|0|0,"|",12)');
 	});
 
 	describe('#process Feature 17', function() {
@@ -883,6 +951,8 @@ describe('PlastikCalculatorService', function() {
 		testProcess('=groupConcat({{custom.composite[*].name}}," - ")', formData, formMetaData, null, 'Name 1 - Name 2');
 		testProcess('=groupConcat({{custom.emptyComposite[*].name}}," - ")', formData, formMetaData, null, '');
 		testProcess('=groupConcat({{custom.unexistentComposite[*].name}}," - ")', formData, formMetaData, null, '');
+
+		testProcess('=groupConcat({{custom.unexistentComposite[*].name}}," - ")', formData, formMetaData, null, '');
 	});
 
 	describe('#process Feature 18', function() {
@@ -901,6 +971,8 @@ describe('PlastikCalculatorService', function() {
 		testProcess('=concat({{custom.first_name}}," ",{{custom.last_name}})', formData, formMetaData, null, 'Fernando Salidas');
 		testProcess('=concat({{custom.first_name}}," ",{{custom.last_name}}," bought ",{{custom.amount}}," dollars of bread with a discount of ",{{custom.discount}},"%")', formData, formMetaData, null, 'Fernando Salidas bought 500 dollars of bread with a discount of 10%');
 		testProcess('=concat({{custom.first_name}}," ",{{custom.last_name}}," bought ",{{custom.amount}}," dollars of bread with a discount of ",{{custom.discount}},"% spending ",{{custom.amount}}*(1-{{custom.discount}}/100)," dollars")', formData, formMetaData, null, 'Fernando Salidas bought 500 dollars of bread with a discount of 10% spending 450 dollars');
+
+		testProcess('concat({{custom.first_name}}," ",{{custom.last_name}}," bought ",{{custom.amount}}," dollars of bread with a discount of ",{{custom.discount}},"% spending ",{{custom.amount}}*(1-{{custom.discount}}/100)," dollars")', formData, formMetaData, null, 'concat(Fernando," ",Salidas," bought ",500," dollars of bread with a discount of ",10,"% spending ",500*(1-10/100)," dollars")');
 	});
 	function testProcess(formula, formData, formMetaData, context, expectedResult) {
 		it ('Should return ' + expectedResult + ' for "' + formula + '" and context "' + context + '"', function() {

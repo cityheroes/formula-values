@@ -8,19 +8,14 @@ export default class FormulaValue {
 		if (Formula.isFormula(expression)) {
 			this.compiledExpression = new Formula(expression);
 		} else if (ConcatenatedText.isConcatenatedText(expression)) {
-			this.compiledExpression = new ConcatenatedText();
+			this.compiledExpression = new ConcatenatedText(expression);
 		} else {
 			this.compiledExpression = new DefaultValue(expression);
 		}
 	}
 
 	eval(data = {}, metaData = {}, context = '') {
-		let result = null;
-		try {
-			result = this.compiledExpression.eval(data, metaData, context);
-		} catch (error) {
-			console.error(error);
-		}
+		let result = this.compiledExpression.eval(data, metaData, context);
 		return result;
 	}
 

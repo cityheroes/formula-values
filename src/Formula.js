@@ -27,17 +27,20 @@ export default class Formula extends CompiledExpression {
 	}
 
 	eval(data, metaData, context) {
-		var contextPath = Helpers.getPath(context);
-		var parsedVariables = this._variables.map((variable) => {
-			return variable.parseVariable(contextPath);
-		});
-
-		let resolvedParsedExpression = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
-			return parsedVariables[parseInt(number)];
-		});
-
-		let value = Helpers.evalWithSafeEnvironment(resolvedParsedExpression, data, metaData);
-		return value;
+		let result = null;
+		try {
+			var contextPath = Helpers.getPath(context);
+			var parsedVariables = this._variables.map((variable) => {
+				return variable.parseVariable(contextPath);
+			});
+			let resolvedParsedExpression = this._parsedExpression.replace(/\[\*(\d*)\*\]/g, (match, number) => {
+				return parsedVariables[parseInt(number)];
+			});
+			result = Helpers.evalWithSafeEnvironment(resolvedParsedExpression, data, metaData);
+		} catch (error) {
+			console.warn(error);
+		}
+		return result;
 	}
 
 	getDependencies() {
