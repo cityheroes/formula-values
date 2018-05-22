@@ -75,6 +75,11 @@ export default {
 
 	getPath: getPath,
 	assignTo: assignTo,
-	compact: compact
+	compact: compact,
+	patterns: {
+		variable: '{{([^}]+)}}'
+	},
+	dataVarName: 'data',
+	metaDataVarName: 'metaData'
 
 };

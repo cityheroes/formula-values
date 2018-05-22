@@ -1,4 +1,5 @@
-import FormulaValue from '../dist/FormulaValue';
+import _ from 'underscore';
+import FormulaValue from '../src/FormulaValue';
 
 describe('PlastikCalculatorService', function() {
 
@@ -191,7 +192,7 @@ describe('PlastikCalculatorService', function() {
 	};
 
 	describe('#process Feature #1', function() {
-		testProcess('123', formData, null, null, null);
+		testProcess('123', formData, null, null, '123');
 		testProcess('=2+2', formData, null, null, 4);
 		testProcess('=2*2', formData, null, null, 4);
 		testProcess('=8/2', formData, null, null, 4);
@@ -894,8 +895,7 @@ describe('PlastikCalculatorService', function() {
 			}
 		};
 
-		var formMetaData = {
-		};
+		var formMetaData = {};
 
 		testProcess('=concat({{custom.first_name}},{{custom.last_name}})', formData, formMetaData, null, 'FernandoSalidas');
 		testProcess('=concat({{custom.first_name}}," ",{{custom.last_name}})', formData, formMetaData, null, 'Fernando Salidas');

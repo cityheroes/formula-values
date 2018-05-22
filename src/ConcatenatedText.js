@@ -8,7 +8,7 @@ export default class ConcatenatedText extends CompiledExpression {
 	}
 
 	static isConcatenatedText(expression) {
-		return 'string' === typeof expression;
+		return 'string' === typeof expression && expression.indexOf(Helpers.variablePattern) > -1;
 	}
 
 }

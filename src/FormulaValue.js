@@ -15,7 +15,13 @@ export default class FormulaValue {
 	}
 
 	eval(data = {}, metaData = {}, context = '') {
-		return this.compiledExpression.eval(data, metaData, context);
+		let result = null;
+		try {
+			result = this.compiledExpression.eval(data, metaData, context);
+		} catch (error) {
+			console.error(error);
+		}
+		return result;
 	}
 
 	static isFormulaValue(expression) {
