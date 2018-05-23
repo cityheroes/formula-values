@@ -18,5 +18,9 @@ export default () => ({
 	stats: {
 		colors: true
 	},
-	devtool: 'source-map'
+	devtool: 'source-map',
+	externals: {
+		'underscore': 'underscore',
+		'moment': 'moment'
+	}
 });
