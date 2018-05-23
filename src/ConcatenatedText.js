@@ -18,18 +18,17 @@ export default class ConcatenatedText extends CompiledExpression {
 	eval(data, metaData, context) {
 		let result = '';
 		try {
-			let contextPath = Helpers.getPath(context);
+			let contextPath = Helpers.processPath(context);
 
 			let parsedVariables = this._variables.map((variable) => {
 				if (variable.hasStar()) {
 					return '';
-				} else {
-					return Helpers.evalWithSafeEnvironment(
-						variable.parseVariable(contextPath),
-						data,
-						metaData
-					);
 				}
+				return Helpers.evalWithSafeEnvironment(
+					variable.parseVariable(contextPath),
+					data,
+					metaData
+				);
 			});
 
 			result = this._parsedExpression.replace(
@@ -48,7 +47,7 @@ export default class ConcatenatedText extends CompiledExpression {
 	}
 
 	static isConcatenatedText(expression) {
-		return 'string' === typeof expression && VARIABLE_REGEX.test(expression) > -1;
+		return 'string' === typeof expression && VARIABLE_REGEX.test(expression);
 	}
 
 }

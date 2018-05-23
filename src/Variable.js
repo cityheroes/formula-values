@@ -7,28 +7,11 @@ export default class Variable {
 
 	constructor(text) {
 
-		this._hasContext = false;
-		this._hasStar = false;
-		this._hasAt = false;
+		this._path = Helpers.processPath(text);
 
-		let tempPath = Helpers.getPath(text);
-
-		let tempPathElement;
-		for (let i = tempPath.length - 1; i >= 0; i--) {
-			tempPathElement = tempPath[i];
-			if (tempPathElement !== '@' && tempPathElement !== '*') {
-				tempPath[i] = tempPathElement;
-			} else {
-				this._hasContext = true;
-				if (tempPathElement === '*') {
-					this._hasStar = true;
-				} else if (tempPathElement === '@') {
-					this._hasAt = true;
-				}
-			}
-		}
-
-		this._path = tempPath;
+		this._hasStar = this._path.indexOf('*') > -1;
+		this._hasAt = this._path.indexOf('@') > -1;
+		this._hasContext = this._hasAt;
 
 		if (text.indexOf('::') > -1) {
 			this._environment = Helpers.metaDataVarName;
@@ -39,25 +22,21 @@ export default class Variable {
 		if (text === '') {
 			this._parsedVariable = 'null';
 		} else if (!this._hasContext) {
-			let parsedVariable = this._environment;
-			for (let i = 0, len = tempPath.length; i < len; i++) {
-				parsedVariable += '[\'' + tempPath[i] + '\']';
-			}
-			this._parsedVariable = parsedVariable;
+			this._parsedVariable = Variable._parse(this._path, this._environment);
 		}
 	}
 
 	parseVariable(contextPath) {
-		return (this._parsedVariable || this._parseWithEnvironment(contextPath));
+		return (this._parsedVariable || this._parseWithContext(contextPath));
 	}
 
-	_parseWithEnvironment(contextPath) {
+	_parseWithContext(contextPath) {
 		let index = 0,
 			contextLength = contextPath.length,
 			pathLength = this._path.length,
-			fieldPath = this._path;
+			fieldPath = this._path.slice();
 
-		for (; index<contextLength && index < pathLength; index++) {
+		for (; index < contextLength && index < pathLength; index++) {
 			if (fieldPath[index] === '@' && _.isNumber(contextPath[index])) {
 				fieldPath[index] = Number(contextPath[index]);
 			} else if (fieldPath[index] !== contextPath[index] || fieldPath[index] === '*') {
@@ -67,32 +46,10 @@ export default class Variable {
 		for (; index < pathLength; index++) {
 			if (fieldPath[index] === '@') {
 				throw new Error('Context could not fully resolve');
-			} else if (fieldPath[index] === '*') {
-				fieldPath[index] = '*';
 			}
 		}
 
-		let pathElement,
-			hasStarOperator = false,
-			parsedVariable = this._environment;
-		for (let i = 0, len = this._path.length; i < len; i++) {
-			pathElement = this._path[i];
-			if (pathElement === '*') {
-				if (hasStarOperator) {
-					parsedVariable += '")';
-				} else {
-					hasStarOperator = true;
-				}
-				parsedVariable = '__processStarOperator(' + parsedVariable + ',"';
-			} else {
-				parsedVariable += '[\'' + pathElement + '\']';
-			}
-		}
-
-		if (hasStarOperator) {
-			parsedVariable += '")';
-		}
-		return parsedVariable;
+		return Variable._parse(fieldPath, this._environment);
 	}
 
 	hasStar() {
@@ -105,6 +62,29 @@ export default class Variable {
 
 	static isValid(text) {
 		return !INVALID_VARIABLE_REGEX.test(text);
+	}
+
+	static _parse(path, environment) {
+ 		let pathElement,
+			hasStarOperator = false,
+			parsedVariable = environment;
+		for (let i = 0, len = path.length; i < len; i++) {
+			pathElement = path[i];
+			if (pathElement === '*') {
+				if (hasStarOperator) {
+					parsedVariable += '")';
+				} else {
+					hasStarOperator = true;
+				}
+				parsedVariable = '__processStarOperator(' + parsedVariable + ',"';
+			} else {
+				parsedVariable += '[\'' + pathElement + '\']';
+			}
+		}
+		if (hasStarOperator) {
+			parsedVariable += '")';
+		}
+		return parsedVariable;
 	}
 
 }

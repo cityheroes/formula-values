@@ -3,7 +3,7 @@ import moment from 'moment';
 
 const ARRAY_REFERENCE_REGEX = /(.*)\[(@|\*|\d+)]/g;
 
-const getPath = (context) => {
+const processPath = (context) => {
 	if (!context) {
 		return [];
 	}
@@ -32,7 +32,7 @@ const getPath = (context) => {
 };
 
 const assignTo = (variable, path, index, value) => {
-	let pathRoute = getPath(path);
+	let pathRoute = processPath(path);
 	if ('undefined' !== typeof index) {
 		pathRoute.push(index);
 	}
@@ -56,7 +56,7 @@ const assignTo = (variable, path, index, value) => {
 };
 
 const compact = (variable, path) => {
-	let pathRoute = getPath(path),
+	let pathRoute = processPath(path),
 		pathElement;
 	while (pathRoute.length) {
 		pathElement = pathRoute.shift();
@@ -135,7 +135,7 @@ const evalWithSafeEnvironment = (function () {
 		};
 
 	const __processStarOperator = (array, path) => {
-		var result = [];
+		let result = [];
 		if (array && _.isArray(array) && array.length) {
 			let value,
 				pushNestedElement = (nestedElement) => {
@@ -212,7 +212,7 @@ const evalWithSafeEnvironment = (function () {
 
 	const avg = (array) => {
 		let total = sum(array);
-		if (array && _.isArray(array) && array.length>0) {
+		if (array && _.isArray(array) && array.length > 0) {
 			total /= array.length;
 		}
 		return total;
@@ -225,7 +225,7 @@ const evalWithSafeEnvironment = (function () {
 
 export default {
 
-	getPath: getPath,
+	processPath: processPath,
 	assignTo: assignTo,
 	compact: compact,
 	patterns: {

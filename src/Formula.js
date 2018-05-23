@@ -22,7 +22,7 @@ export default class Formula extends CompiledExpression {
 	eval(data, metaData, context) {
 		let result = null;
 		try {
-			let contextPath = Helpers.getPath(context);
+			let contextPath = Helpers.processPath(context);
 			let parsedVariables = this._variables.map((variable) => {
 				return variable.parseVariable(contextPath);
 			});
