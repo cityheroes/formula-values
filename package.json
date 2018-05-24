@@ -2,7 +2,8 @@
   "name": "formula-value",
   "version": "1.0.0",
   "description": "",
-  "main": "src/FormulaValue.js",
+  "main": "dist/FormulaValue.js",
+  "module": "src/FormulaValue.js",
   "scripts": {
     "watch": "webpack --progress --colors --watch",
     "build": "webpack",
