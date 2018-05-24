@@ -2,6 +2,7 @@ import path from 'path';
 
 export default () => ({
 	entry: './src/FormulaValue.js',
+	target: 'node',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'FormulaValue.js',
