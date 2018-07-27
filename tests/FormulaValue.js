@@ -974,6 +974,24 @@ describe('PlastikCalculatorService', function() {
 
 		testProcess('concat({{custom.first_name}}," ",{{custom.last_name}}," bought ",{{custom.amount}}," dollars of bread with a discount of ",{{custom.discount}},"% spending ",{{custom.amount}}*(1-{{custom.discount}}/100)," dollars")', formData, formMetaData, null, 'concat(Fernando," ",Salidas," bought ",500," dollars of bread with a discount of ",10,"% spending ",500*(1-10/100)," dollars")');
 	});
+
+	describe('#process Feature 19', function() {
+		var formData = {
+			custom: {
+				date1: '2017-07-20',
+				date2: '2017-07-20 22:34:12',
+				date3: '22:34:12',
+				date4: 'This is not a date',
+				date5: null
+			}
+		};
+		testProcess('=formatDate({{custom.date1}}, "YYYY-MM-DD")', formData, null, null, '2017-07-20');
+		testProcess('=formatDate({{custom.date2}}, "MMM Do YYYY, LT")', formData, null, null, 'Jul 20th 2017, 10:34 PM');
+		testProcess('=formatDate({{custom.date3}}, "YYYY-MM-DD")', formData, null, null, 'Invalid date');
+		testProcess('=formatDate({{custom.date4}}, "YYYY-MM-DD")', formData, null, null, 'Invalid date');
+		testProcess('=formatDate({{custom.date5}}, "YYYY-MM-DD")', formData, null, null, 'Invalid date');
+	});
+
 	function testProcess(formula, formData, formMetaData, context, expectedResult) {
 		it ('Should return ' + expectedResult + ' for "' + formula + '" and context "' + context + '"', function() {
 			var fv = new FormulaValue(formula);
