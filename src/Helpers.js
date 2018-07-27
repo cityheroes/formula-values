@@ -218,6 +218,10 @@ const evalWithSafeEnvironment = (function () {
 		return total;
 	};
 
+	const formatDate = (date, format) => {
+		return moment(date).format(format);
+	};
+
 	return function(formula, data, metaData) {
 		return eval(formula);
 	};
