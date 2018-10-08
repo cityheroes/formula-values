@@ -205,7 +205,22 @@ const evalWithSafeEnvironment = (function () {
 		var elements = Array.prototype.slice.call(arguments);
 		return elements.join('');
 	}
-
+	function max(array) {
+		if (array != 0) {
+			var maxFilteredArray = _.max(array);
+			return maxFilteredArray;
+		} else {
+			return 'Array has no content';
+		};
+	};
+	function min(array) {
+		if (array != 0) {
+			var minFilteredArray = _.min(array);
+			return minFilteredArray;
+		} else {
+			return 'Array has no content';
+		};
+	};
 	const count = (array) => {
 		return array.length;
 	};
