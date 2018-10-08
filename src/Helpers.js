@@ -205,20 +205,20 @@ const evalWithSafeEnvironment = (function () {
 		var elements = Array.prototype.slice.call(arguments);
 		return elements.join('');
 	}
-	function max(array) {
-		if (array != 0) {
-			var maxFilteredArray = _.max(array);
-			return maxFilteredArray;
+	function max(value) {
+		if (Array.isArray(value) && value.length > 0) {
+			return _.max(value);
 		} else {
-			return 'Array has no content';
+				console.warn('Invalid array');
+				return false;
 		};
 	};
-	function min(array) {
-		if (array != 0) {
-			var minFilteredArray = _.min(array);
-			return minFilteredArray;
+	function min(value) {
+		if (Array.isArray(value) && value.length > 0) {
+			return _.min(value)
 		} else {
-			return 'Array has no content';
+				console.warn('Invalid array');
+				return false;
 		};
 	};
 	const count = (array) => {
