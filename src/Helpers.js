@@ -210,7 +210,7 @@ const evalWithSafeEnvironment = (function () {
 			return _.max(value);
 		} else {
 				console.warn('Invalid array');
-				return false;
+				return null;
 		};
 	};
 	function min(value) {
@@ -218,7 +218,7 @@ const evalWithSafeEnvironment = (function () {
 			return _.min(value)
 		} else {
 				console.warn('Invalid array');
-				return false;
+				return null;
 		};
 	};
 	const count = (array) => {
