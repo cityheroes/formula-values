@@ -1,6 +1,7 @@
 import path from 'path';
 
 let serverConf = {
+	mode: 'production',
 	entry: './src/FormulaValue.js',
 	target: 'node',
 	output: {
@@ -27,12 +28,13 @@ let serverConf = {
 };
 
 let webConf = {
+	mode: 'production',
 	entry: './src/FormulaValue.js',
 	target: 'web',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'FormulaValue.web.js',
-		libraryTarget: 'umd',
+		libraryTarget: 'var',
 		library: 'FormulaValue',
 		libraryExport: 'default'
 	},
@@ -48,7 +50,7 @@ let webConf = {
 	},
 	devtool: 'source-map',
 	externals: {
-		'underscore': 'underscore',
+		'underscore': '_',
 		'moment': 'moment'
 	}
 };

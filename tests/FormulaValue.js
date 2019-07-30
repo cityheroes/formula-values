@@ -992,6 +992,68 @@ describe('PlastikCalculatorService', function() {
 		testProcess('=formatDate({{custom.date5}}, "YYYY-MM-DD")', formData, null, null, 'Invalid date');
 	});
 
+	describe('#process Feature 20', function() {
+		var formData = {
+			custom: {
+				array1: [23, 65, 7, , 1346, 1234, 12, 709, 0, 120, 56],
+				array2: [15, 56, 2, 0, 24, 15],
+				array3: [],
+				array4: [12, 57, 23, 100, null, 604],
+				array5: [46, 78, 12, 680, 'hello', 104],
+				notArrayData1: {
+					value: 1,
+					Value: 3,
+					value: 5
+				},
+				notArrayData2: 10000,
+				notArrayData3: null,
+				notArrayData4: "Not an array",
+				notArrayData5: undefined
+			}
+		};
+		testProcess('=max({{custom.array1}})', formData, null, null, 1346);
+		testProcess('=max({{custom.array2}})', formData, null, null, 56);
+		testProcess('=max({{custom.array3}})', formData, null, null, null);
+		testProcess('=max({{custom.array4}})', formData, null, null, 604);
+		testProcess('=max({{custom.array5}})', formData, null, null, 680);
+		testProcess('=max({{custom.notArrayData1}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData2}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData3}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData4}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData5}})', formData, null, null, null);
+	});
+
+	describe('#process Feature 21', function() {
+		var formData = {
+			custom: {
+				array1: [23, 65, 7, , 1346, 1234, 12, 709, 0, 120, 56],
+				array2: [15, 56, -10, 2, 0, 24, 15, -12],
+				array3: [],
+				array4: [12, 57, 23, 100, null, 604],
+				array5: [46, 78, 12, 680, -100, 'hello again', 104],
+				notArrayData1: {
+					value: 1,
+					Value: 3,
+					value: 5
+				},
+				notArrayData2: 20000,
+				notArrayData3: null,
+				notArrayData4: "Not an array again",
+				notArrayData5: undefined
+			}
+		};
+		testProcess('=min({{custom.array1}})', formData, null, null, 0);
+		testProcess('=min({{custom.array2}})', formData, null, null, -12);
+		testProcess('=min({{custom.array3}})', formData, null, null, null);
+		testProcess('=min({{custom.array4}})', formData, null, null, 12);
+		testProcess('=min({{custom.array5}})', formData, null, null, -100);
+		testProcess('=max({{custom.notArrayData1}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData2}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData3}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData4}})', formData, null, null, null);
+		testProcess('=max({{custom.notArrayData5}})', formData, null, null, null);
+	});
+
 	function testProcess(formula, formData, formMetaData, context, expectedResult) {
 		it ('Should return ' + expectedResult + ' for "' + formula + '" and context "' + context + '"', function() {
 			var fv = new FormulaValue(formula);
