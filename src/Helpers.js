@@ -233,12 +233,20 @@ const evalWithSafeEnvironment = (function () {
 		return total;
 	};
 
-	const formatDate = (date, format) => {
-		return moment(date).format(format);
+	const formatDate = (date, format, isUTC) => {
+		if (isUTC) {
+			return moment.utc(date).local().format(format);
+		} else {
+			return moment(date).format(format);
+		}
 	};
 
 	return function(formula, data, metaData) {
-		return eval(formula);
+		try {
+			return eval(formula);
+		} catch(e) {
+			return '';
+		}
 	};
 }).call();
 
