@@ -15,6 +15,7 @@ export default class CompiledExpression {
 
 		const variablesCache = {};
 		this._parsedExpression = expression.replace(VARIABLE_REGEX, (match, variableText) => {
+			variableText = variableText.trim();
 			if (Variable.isValid(variableText)) {
 				if (!variablesCache[variableText]) {
 					variablesCache[variableText] = this._variables.length;

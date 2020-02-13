@@ -251,17 +251,15 @@ const evalWithSafeEnvironment = (function () {
 }).call();
 
 export default {
-
 	processPath: processPath,
 	assignTo: assignTo,
 	compact: compact,
 	patterns: {
-		variable: '{{([^}]+)}}',
+		variable: '{{\s?([^}]+)\s?}}',
 		parsedExpression: '\\[\\*(\\d*)\\*\\]',
 		invalidVariable: '\\[(?!(?:@|\\*|\\d+)\\]|[\\.$])|^[^\\[]*\\]|\\][^\\[]*\\]|[\\{\\}]|\\][]|\\][^\\.\\[]'
 	},
 	dataVarName: 'data',
 	metaDataVarName: 'metaData',
 	evalWithSafeEnvironment: evalWithSafeEnvironment
-
 };
