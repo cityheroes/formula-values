@@ -8,7 +8,7 @@ export default class CompiledExpression {
 	constructor(rules, expression) {
 		this._variables = [];
 
-		for(var i = 0, size = rules.length; i < size; i++) {
+		for (var i = 0, size = rules.length; i < size; i++) {
 			var rule = rules[i];
 			expression = expression.replace(new RegExp(rule.pattern, 'g'), rule.replacement);
 		}
