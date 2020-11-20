@@ -1,8 +1,11 @@
-import Formula from './Formula';
-import ConcatenatedText from './ConcatenatedText';
-import DefaultValue from './DefaultValue';
+import { CompiledExpression } from './compiled-expression';
+import { ConcatenatedText } from './concatenated-text';
+import { DefaultValue } from './default-value';
+import { Formula } from './formula';
 
-export default class FormulaValue {
+export class FormulaValue {
+
+	compiledExpression: CompiledExpression;
 
 	constructor(expression = '') {
 		if (Formula.isFormula(expression)) {
@@ -18,7 +21,7 @@ export default class FormulaValue {
 		return this.compiledExpression.eval(data, metaData, context);
 	}
 
-	static isFormulaValue(expression) {
+	static isFormulaValue(expression: string) {
 		return Formula.isFormula(expression) || ConcatenatedText.isConcatenatedText(expression);
 	}
 

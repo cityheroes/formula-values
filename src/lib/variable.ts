@@ -1,22 +1,38 @@
-import _ from 'underscore';
-import Helpers from './Helpers';
+import {
+	isNumber as _isNumber
+} from 'lodash-es';
 
-const INVALID_VARIABLE_REGEX = new RegExp(Helpers.patterns.invalidVariable);
+import {
+	dataVarName,
+	patterns as helperPatterns,
+	metaDataVarName,
+	processPath,
+	RoutePath
+} from './helpers';
 
-export default class Variable {
+const INVALID_VARIABLE_REGEX = new RegExp(helperPatterns.invalidVariable);
 
-	constructor(text) {
+export class Variable {
 
-		this._path = Helpers.processPath(text);
+	_path: RoutePath;
+	_hasStar: boolean;
+	_hasAt: boolean;
+	_hasContext: boolean;
+	_environment: 'metaData' | 'data';
+	_parsedVariable: string;
+
+	constructor(text: string) {
+
+		this._path = processPath(text);
 
 		this._hasStar = this._path.indexOf('*') > -1;
 		this._hasAt = this._path.indexOf('@') > -1;
 		this._hasContext = this._hasAt;
 
 		if (text.indexOf('::') > -1) {
-			this._environment = Helpers.metaDataVarName;
+			this._environment = metaDataVarName;
 		} else {
-			this._environment = Helpers.dataVarName;
+			this._environment = dataVarName;
 		}
 
 		if (text === '') {
@@ -31,13 +47,13 @@ export default class Variable {
 	}
 
 	_parseWithContext(contextPath) {
-		let index = 0,
-			contextLength = contextPath.length,
-			pathLength = this._path.length,
-			fieldPath = this._path.slice();
+		let index = 0;
+		const contextLength = contextPath.length;
+		const pathLength = this._path.length;
+		const fieldPath = this._path.slice();
 
 		for (; index < contextLength && index < pathLength; index++) {
-			if (fieldPath[index] === '@' && _.isNumber(contextPath[index])) {
+			if (fieldPath[index] === '@' && _isNumber(contextPath[index])) {
 				fieldPath[index] = Number(contextPath[index]);
 			} else if (fieldPath[index] !== contextPath[index] || fieldPath[index] === '*') {
 				break;
@@ -60,29 +76,27 @@ export default class Variable {
 		return this._hasAt;
 	}
 
-	static isValid(text) {
+	static isValid(text: string) {
 		return !INVALID_VARIABLE_REGEX.test(text);
 	}
 
-	static _parse(path, environment) {
- 		let pathElement,
-			hasStarOperator = false,
-			parsedVariable = environment;
-		for (let i = 0, len = path.length; i < len; i++) {
-			pathElement = path[i];
+	static _parse(path: unknown[], environment: string) {
+		let hasStarOperator = false;
+		let parsedVariable = environment;
+		path.forEach(pathElement => {
 			if (pathElement === '*') {
 				if (hasStarOperator) {
-					parsedVariable += '")';
+					parsedVariable += `")`;
 				} else {
 					hasStarOperator = true;
 				}
-				parsedVariable = '__processStarOperator(' + parsedVariable + ',"';
+				parsedVariable = `__processStarOperator(${parsedVariable},"`;
 			} else {
-				parsedVariable += '[\'' + pathElement + '\']';
+				parsedVariable += `['${pathElement}']`;
 			}
-		}
+		});
 		if (hasStarOperator) {
-			parsedVariable += '")';
+			parsedVariable += `")`;
 		}
 		return parsedVariable;
 	}
