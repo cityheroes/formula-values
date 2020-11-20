@@ -1,30 +1,38 @@
-import Helpers from './Helpers';
-import CompiledExpression from './CompiledExpression';
-import Variable from './Variable';
+import {
+	CompiledExpression,
+} from './compiled-expression';
+import {
+	evalWithSafeEnvironment,
+	patterns as helperPatterns,
+	processPath,
+	RoutePath
+} from './helpers';
 
-const CLEANING_RULES = [{
+const CLEANING_RULES = [
+	{
 		pattern: '\'',
 		replacement: '\\\''
-	}],
-	VARIABLE_REGEX = new RegExp(Helpers.patterns.variable),
-	PARSED_EXPRESSION_REGEX = new RegExp(Helpers.patterns.parsedExpression,'g');
+	}
+];
+const VARIABLE_REGEX = new RegExp(helperPatterns.variable);
+const PARSED_EXPRESSION_REGEX = new RegExp(helperPatterns.parsedExpression, 'g');
 
-export default class ConcatenatedText extends CompiledExpression {
+export class ConcatenatedText extends CompiledExpression {
 
 	constructor(expression = '') {
 		super(CLEANING_RULES, expression);
 	}
 
-	eval(data, metaData, context) {
+	eval(data: Record<string, unknown>, metaData: Record<string, unknown>, context: string) {
 		let result = '';
 		try {
-			let contextPath = Helpers.processPath(context);
+			const contextPath: RoutePath = processPath(context);
 
-			let parsedVariables = this._variables.map((variable) => {
+			const parsedVariables = this._variables.map((variable) => {
 				if (variable.hasStar()) {
 					return '';
 				}
-				return Helpers.evalWithSafeEnvironment(
+				return evalWithSafeEnvironment(
 					variable.parseVariable(contextPath),
 					data,
 					metaData
@@ -33,7 +41,7 @@ export default class ConcatenatedText extends CompiledExpression {
 
 			result = this._parsedExpression.replace(
 				PARSED_EXPRESSION_REGEX,
-				(match, number) => {
+				(_match, number) => {
 					return parsedVariables[parseInt(number)];
 				});
 		} catch (error) {
