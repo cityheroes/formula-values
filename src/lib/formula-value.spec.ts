@@ -1,4 +1,5 @@
 import test from 'ava';
+import dayjs from 'dayjs';
 
 import { FormulaValue } from './formula-value';
 
@@ -1054,4 +1055,36 @@ test('#process Feature 21', (t) => {
 	testProcess(t, '=max({{custom.notArrayData3}})', formData, null, null, null);
 	testProcess(t, '=max({{custom.notArrayData4}})', formData, null, null, null);
 	testProcess(t, '=max({{custom.notArrayData5}})', formData, null, null, null);
+});
+
+test('#process Feature #21 with normal unit names', (t) => {
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 0, 0)', null, null, null, dayjs().toISOString());
+	testProcess(t, '=datetimeFromNow(1, 0, 0, 0, 0, 0)', null, null, null, dayjs().add(1, 'year').toISOString());
+	testProcess(t, '=datetimeFromNow(-1, 0, 0, 0, 0, 0)', null, null, null, dayjs().subtract(1, 'year').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 1, 0, 0, 0, 0)', null, null, null, dayjs().add(1, 'month').toISOString());
+	testProcess(t, '=datetimeFromNow(0, -1, 0, 0, 0, 0)', null, null, null, dayjs().subtract(1, 'month').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 1, 0, 0, 0)', null, null, null, dayjs().add(1, 'day').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, -1, 0, 0, 0)', null, null, null, dayjs().subtract(1, 'day').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 1, 0, 0)', null, null, null, dayjs().add(1, 'hour').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, -1, 0, 0)', null, null, null, dayjs().subtract(1, 'hour').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 1, 0)', null, null, null, dayjs().add(1, 'minute').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, -1, 0)', null, null, null, dayjs().subtract(1, 'minute').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 0, 1)', null, null, null, dayjs().add(1, 'second').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 0, -1)', null, null, null, dayjs().subtract(1, 'second').toISOString());
+
+	testProcess(t, '=datetimeFromNow()', null, null, null, dayjs().toISOString());
+	testProcess(t, '=datetimeFromNow(1)', null, null, null, dayjs().add(1, 'year').toISOString());
+	testProcess(t, '=datetimeFromNow(-1)', null, null, null, dayjs().subtract(1, 'year').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 1)', null, null, null, dayjs().add(1, 'month').toISOString());
+	testProcess(t, '=datetimeFromNow(0, -1)', null, null, null, dayjs().subtract(1, 'month').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 1)', null, null, null, dayjs().add(1, 'day').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, -1)', null, null, null, dayjs().subtract(1, 'day').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 1)', null, null, null, dayjs().add(1, 'hour').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, -1)', null, null, null, dayjs().subtract(1, 'hour').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 1)', null, null, null, dayjs().add(1, 'minute').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, -1)', null, null, null, dayjs().subtract(1, 'minute').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 0, 1)', null, null, null, dayjs().add(1, 'second').toISOString());
+	testProcess(t, '=datetimeFromNow(0, 0, 0, 0, 0, -1)', null, null, null, dayjs().subtract(1, 'second').toISOString());
+
+	testProcess(t, '=formatDate(datetimeFromNow(), "YYYYMMDD", true)', null, null, null, dayjs().format('YYYYMMDD'));
 });
