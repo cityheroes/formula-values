@@ -196,6 +196,32 @@ export const evalWithSafeEnvironment = (function () {
 		}
 	};
 
+	const datetimeFromNowDeltas: OpUnitType[] = [
+		'year',
+		'month',
+		'day',
+		'hour',
+		'minute',
+		'second'
+	];
+
+	const datetimeFromNow = (
+		...deltas : number[]
+	) => {
+		const result = datetimeFromNowDeltas.reduce((currentDatetime, delta, index) => {
+			const deltaValue = deltas[index];
+			if (!deltaValue) {
+				return currentDatetime;
+			}
+			if (deltaValue > 0) {
+				return currentDatetime.add(deltaValue, delta);
+			} else {
+				return currentDatetime.subtract(-deltaValue, delta);
+			}
+		}, dayjs().set('millisecond', 0));
+		return result.toISOString();
+	};
+
 	const sum = (array: number[]) => {
 		if (array && _isArray(array) && array.length) {
 			return array.reduce((accumulated, item) => accumulated + item, 0);
