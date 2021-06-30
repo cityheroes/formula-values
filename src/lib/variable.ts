@@ -1,6 +1,4 @@
-import {
-	isNumber as _isNumber
-} from 'lodash-es';
+import lodash from 'lodash';
 
 import {
 	dataVarName,
@@ -53,7 +51,7 @@ export class Variable {
 		const fieldPath = this._path.slice();
 
 		for (; index < contextLength && index < pathLength; index++) {
-			if (fieldPath[index] === '@' && _isNumber(contextPath[index])) {
+			if (fieldPath[index] === '@' && lodash.isNumber(contextPath[index])) {
 				fieldPath[index] = Number(contextPath[index]);
 			} else if (fieldPath[index] !== contextPath[index] || fieldPath[index] === '*') {
 				break;

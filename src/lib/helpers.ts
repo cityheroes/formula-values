@@ -2,15 +2,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { OpUnitType, QUnitType } from 'dayjs';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import utc from 'dayjs/plugin/utc';
-import {
-	compact as _compact,
-	flatten as _flatten,
-	flattenDeep as _flattenDeep,
-	flattenDepth as _flattenDepth,
-	isArray as _isArray,
-	max as _max,
-	min as _min
-} from 'lodash-es';
+import lodash from 'lodash';
 
 dayjs.extend(advancedFormat);
 dayjs.extend(utc);
@@ -81,7 +73,7 @@ export const compact = (variable, path) => {
 			}
 			variable = variable[pathElement];
 		} else {
-			variable[pathElement] = _compact(variable[pathElement]);
+			variable[pathElement] = lodash.compact(variable[pathElement]);
 		}
 	});
 };
@@ -145,10 +137,10 @@ export const evalWithSafeEnvironment = (function () {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const __processStarOperator = (array, path: string) => {
 		const result = [];
-		if (array && _isArray(array) && array.length) {
+		if (array && lodash.isArray(array) && array.length) {
 			array.forEach(item => {
 				let value;
-				if (_isArray(item)) {
+				if (lodash.isArray(item)) {
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					value = item.map(nestedElement => eval(`nestedElement${path}`));
 				} else {
@@ -223,7 +215,7 @@ export const evalWithSafeEnvironment = (function () {
 	};
 
 	const sum = (array: number[]) => {
-		if (array && _isArray(array) && array.length) {
+		if (array && lodash.isArray(array) && array.length) {
 			return array.reduce((accumulated, item) => accumulated + item, 0);
 		} else {
 			return 0;
@@ -247,11 +239,11 @@ export const evalWithSafeEnvironment = (function () {
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const flatten = (array, depth: number | boolean = false) => {
 		if (depth === true || depth === 1) {
-			return _flatten(array);
+			return lodash.flatten(array);
 		} else if (depth === false) {
-			return _flattenDeep(array);
+			return lodash.flattenDeep(array);
 		} else {
-			return _flattenDepth(array, depth);
+			return lodash.flattenDepth(array, depth);
 		}
 	};
 
@@ -267,8 +259,8 @@ export const evalWithSafeEnvironment = (function () {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const max = (value: number[]) => {
-		if (_isArray(value) && value.length > 0) {
-			return _max(value);
+		if (lodash.isArray(value) && value.length > 0) {
+			return lodash.max(value);
 		} else {
 			console.warn('Invalid array');
 			return null;
@@ -277,8 +269,8 @@ export const evalWithSafeEnvironment = (function () {
 
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	function min(value: number[]) {
-		if (_isArray(value) && value.length > 0) {
-			return _min(value)
+		if (lodash.isArray(value) && value.length > 0) {
+			return lodash.min(value)
 		} else {
 			console.warn('Invalid array');
 			return null;
@@ -286,7 +278,7 @@ export const evalWithSafeEnvironment = (function () {
 	};
 
 	const count = (array: unknown[] = []) => {
-		if (array && _isArray(array) && array.length > 0) {
+		if (array && lodash.isArray(array) && array.length > 0) {
 			return array.length;
 		}
 		return 0;
