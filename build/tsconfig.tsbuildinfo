@@ -1,0 +1,336 @@
+{
+  "program": {
+    "fileInfos": {
+      "../node_modules/typescript/lib/lib.es5.d.ts": {
+        "version": "c9a1f03d6ba0fe3c871eb0dd81622e78fbb61ade70878b34d48a341a690c59e9",
+        "signature": "c9a1f03d6ba0fe3c871eb0dd81622e78fbb61ade70878b34d48a341a690c59e9",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.d.ts": {
+        "version": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "signature": "dc47c4fa66b9b9890cf076304de2a9c5201e94b740cffdf09f87296d877d71f6",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/typescript/lib/lib.es2016.d.ts": {
+        "version": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "signature": "7a387c58583dfca701b6c85e0adaf43fb17d590fb16d5b2dc0a2fbd89f35c467",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/typescript/lib/lib.es2017.d.ts": {
+        "version": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "signature": "8a12173c586e95f4433e0c6dc446bc88346be73ffe9ca6eec7aa63c8f3dca7f9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/typescript/lib/lib.dom.d.ts": {
+        "version": "38130cdd16bd2318b9362f9d60dd9670f7e38708bb6131cf11fc78a41b2c34a0",
+        "signature": "38130cdd16bd2318b9362f9d60dd9670f7e38708bb6131cf11fc78a41b2c34a0",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.core.d.ts": {
+        "version": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "signature": "46ee15e9fefa913333b61eaf6b18885900b139867d89832a515059b62cf16a17",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.collection.d.ts": {
+        "version": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "signature": "43fb1d932e4966a39a41b464a12a81899d9ae5f2c829063f5571b6b87e6d2f9c",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.generator.d.ts": {
+        "version": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "signature": "cdccba9a388c2ee3fd6ad4018c640a471a6c060e96f1232062223063b0a5ac6a",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.iterable.d.ts": {
+        "version": "42f5e41e5893da663dbf0394268f54f1da4b43dc0ddd2ea4bf471fe5361d6faf",
+        "signature": "42f5e41e5893da663dbf0394268f54f1da4b43dc0ddd2ea4bf471fe5361d6faf",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.promise.d.ts": {
+        "version": "0b7a905675e6cb4211c128f0a3aa47d414b275180a299a9aad5d3ec298abbfc4",
+        "signature": "0b7a905675e6cb4211c128f0a3aa47d414b275180a299a9aad5d3ec298abbfc4",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.proxy.d.ts": {
+        "version": "dfff68b3c34338f6b307a25d4566de15eed7973b0dc5d69f9fde2bcac1c25315",
+        "signature": "dfff68b3c34338f6b307a25d4566de15eed7973b0dc5d69f9fde2bcac1c25315",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.reflect.d.ts": {
+        "version": "cb609802a8698aa28b9c56331d4b53f590ca3c1c3a255350304ae3d06017779d",
+        "signature": "cb609802a8698aa28b9c56331d4b53f590ca3c1c3a255350304ae3d06017779d",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.symbol.d.ts": {
+        "version": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "signature": "3013574108c36fd3aaca79764002b3717da09725a36a6fc02eac386593110f93",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts": {
+        "version": "4670208dd7da9d6c774ab1b75c1527a810388c7989c4905de6aaea8561cb9dce",
+        "signature": "4670208dd7da9d6c774ab1b75c1527a810388c7989c4905de6aaea8561cb9dce",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2016.array.include.d.ts": {
+        "version": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "signature": "3be5a1453daa63e031d266bf342f3943603873d890ab8b9ada95e22389389006",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2017.object.d.ts": {
+        "version": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "signature": "17bb1fc99591b00515502d264fa55dc8370c45c5298f4a5c2083557dccba5a2a",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts": {
+        "version": "b5e4c2d67aa844ed503b29cd4ca2ede1a229ac7fe874613b2c996fa9c581a25f",
+        "signature": "b5e4c2d67aa844ed503b29cd4ca2ede1a229ac7fe874613b2c996fa9c581a25f",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2017.string.d.ts": {
+        "version": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "signature": "6a6b173e739a6a99629a8594bfb294cc7329bfb7b227f12e1f7c11bc163b8577",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2017.intl.d.ts": {
+        "version": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "signature": "12a310447c5d23c7d0d5ca2af606e3bd08afda69100166730ab92c62999ebb9d",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts": {
+        "version": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "signature": "b0124885ef82641903d232172577f2ceb5d3e60aed4da1153bab4221e1f6dd4e",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/dayjs/locale/types.d.ts": {
+        "version": "73a0ee6395819b063df4b148211985f2e1442945c1a057204cf4cf6281760dc3",
+        "signature": "73a0ee6395819b063df4b148211985f2e1442945c1a057204cf4cf6281760dc3",
+        "affectsGlobalScope": true
+      },
+      "../node_modules/dayjs/locale/index.d.ts": {
+        "version": "d05d8c67116dceafc62e691c47ac89f8f10cf7313cd1b2fb4fe801c2bf1bb1a7",
+        "signature": "d05d8c67116dceafc62e691c47ac89f8f10cf7313cd1b2fb4fe801c2bf1bb1a7",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/dayjs/index.d.ts": {
+        "version": "bfb7c0d444dcb259add3d70c37f9d0b61440885b674e15d104bcdf93f86fbffb",
+        "signature": "bfb7c0d444dcb259add3d70c37f9d0b61440885b674e15d104bcdf93f86fbffb",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/dayjs/plugin/advancedFormat.d.ts": {
+        "version": "49123f65d0f1270a60f5cdb7220dea12d9fcbff320447c933511cb1f7168a11b",
+        "signature": "49123f65d0f1270a60f5cdb7220dea12d9fcbff320447c933511cb1f7168a11b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/dayjs/plugin/utc.d.ts": {
+        "version": "b797a2f42f48e6544deda85015ef7bef0eb26e6a17da7a3474f185e8b1da4154",
+        "signature": "b797a2f42f48e6544deda85015ef7bef0eb26e6a17da7a3474f185e8b1da4154",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/helpers.ts": {
+        "version": "13953cff1e6dd1573e35a00d42f513e13e69b7264286ca5ceaa35d7d84660eb7",
+        "signature": "fa1b41640926502915f0e0970c371b864708809038b35edfcdbbed51f860cc8d",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/variable.ts": {
+        "version": "b5889665e8ab17398f4067444899a45a5416c11ac9f352e325a5adc321ab5b5c",
+        "signature": "ef9e8731d0b92d241623ff27c766a34dad4c010b18048ee90d620d54abbdd273",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/compiled-expression.ts": {
+        "version": "c11c646cf52ae6873599c9592bb55dc8a75f2fde565e619468a98e47f1a80613",
+        "signature": "298b6b1d1a46f405a02640009bd976f4e9f14377df5ac095ee4ca5cf6bf9541b",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/concatenated-text.ts": {
+        "version": "cf23d845e8036a02c9fe2dd6516205b6bfff9d98fa9ad689f7b9e55882b169d5",
+        "signature": "4dfec54c8a2f2f57d1b7957b28ca5e20625697fd9375eb6cc7f437c94ca3cf3f",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/default-value.ts": {
+        "version": "450e5e0bd0be35d25eb157d26dead59ca431d55705cbbc0320939061a5ede8d5",
+        "signature": "fad7fa2037d5357df8011e1ea963f5716596ac78c9506ca0a1b18b7a5038b25d",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/formula.ts": {
+        "version": "4ac64fcf43705135ebd1c0e9258b3a83653a23c8ad072cc054797d21205ee25b",
+        "signature": "3fdc00e77252794dab5313e8b260ac29579d7332f01f4b394b9539bb9f210d34",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/formula-value.ts": {
+        "version": "465124d03f83f2dd0b09012c66719210f83b1796c17e06f7a75bf2dd744106ac",
+        "signature": "453e89ce78effb5e829e7658491de72791b8891164cedcac82f01d04ca6b66a3",
+        "affectsGlobalScope": false
+      },
+      "../src/index.ts": {
+        "version": "3469a560f2466a08d3f0b18e5113eb5cd046a2bc7c3528273615eb3c53c30c6d",
+        "signature": "3469a560f2466a08d3f0b18e5113eb5cd046a2bc7c3528273615eb3c53c30c6d",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ava/index.d.ts": {
+        "version": "0ceec7923fb2a6e540f73682c7acffe9124c9c3517a02eac27632844b8a61251",
+        "signature": "0ceec7923fb2a6e540f73682c7acffe9124c9c3517a02eac27632844b8a61251",
+        "affectsGlobalScope": false
+      },
+      "../src/lib/formula-value.spec.ts": {
+        "version": "bad21d67f39d6021d38b0139322bd401431a66b7b8f2b885748535a078ee3f30",
+        "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+        "affectsGlobalScope": false
+      },
+      "../src/types/example.d.ts": {
+        "version": "234137371a374a21fff31c711453b51047a504eb6f72f083e09ea506dd4aba72",
+        "signature": "234137371a374a21fff31c711453b51047a504eb6f72f083e09ea506dd4aba72",
+        "affectsGlobalScope": false
+      }
+    },
+    "options": {
+      "incremental": true,
+      "target": 1,
+      "outDir": "./main",
+      "rootDir": "../src",
+      "moduleResolution": 2,
+      "module": 3,
+      "declaration": true,
+      "inlineSourceMap": true,
+      "esModuleInterop": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true,
+      "traceResolution": false,
+      "listEmittedFiles": false,
+      "listFiles": false,
+      "pretty": true,
+      "lib": [
+        "lib.es2017.d.ts",
+        "lib.dom.d.ts"
+      ],
+      "types": [],
+      "typeRoots": [
+        "../node_modules/@types",
+        "../src/types"
+      ],
+      "project": "../tsconfig.json",
+      "configFilePath": "../tsconfig.json"
+    },
+    "referencedMap": {
+      "../node_modules/dayjs/index.d.ts": [
+        "../node_modules/dayjs/locale/index.d.ts"
+      ],
+      "../node_modules/dayjs/locale/index.d.ts": [
+        "../node_modules/dayjs/locale/types.d.ts"
+      ],
+      "../node_modules/dayjs/plugin/advancedFormat.d.ts": [
+        "../node_modules/dayjs/index.d.ts"
+      ],
+      "../node_modules/dayjs/plugin/utc.d.ts": [
+        "../node_modules/dayjs/index.d.ts"
+      ],
+      "../src/index.ts": [
+        "../src/lib/formula-value.ts"
+      ],
+      "../src/lib/compiled-expression.ts": [
+        "../src/lib/helpers.ts",
+        "../src/lib/variable.ts"
+      ],
+      "../src/lib/concatenated-text.ts": [
+        "../src/lib/compiled-expression.ts",
+        "../src/lib/helpers.ts"
+      ],
+      "../src/lib/default-value.ts": [
+        "../src/lib/compiled-expression.ts"
+      ],
+      "../src/lib/formula-value.spec.ts": [
+        "../node_modules/ava/index.d.ts",
+        "../node_modules/dayjs/index.d.ts",
+        "../src/lib/formula-value.ts"
+      ],
+      "../src/lib/formula-value.ts": [
+        "../src/lib/compiled-expression.ts",
+        "../src/lib/concatenated-text.ts",
+        "../src/lib/default-value.ts",
+        "../src/lib/formula.ts"
+      ],
+      "../src/lib/formula.ts": [
+        "../src/lib/compiled-expression.ts",
+        "../src/lib/helpers.ts"
+      ],
+      "../src/lib/helpers.ts": [
+        "../node_modules/dayjs/index.d.ts",
+        "../node_modules/dayjs/plugin/advancedFormat.d.ts",
+        "../node_modules/dayjs/plugin/utc.d.ts"
+      ],
+      "../src/lib/variable.ts": [
+        "../src/lib/helpers.ts"
+      ]
+    },
+    "exportedModulesMap": {
+      "../node_modules/dayjs/index.d.ts": [
+        "../node_modules/dayjs/locale/index.d.ts"
+      ],
+      "../node_modules/dayjs/locale/index.d.ts": [
+        "../node_modules/dayjs/locale/types.d.ts"
+      ],
+      "../node_modules/dayjs/plugin/advancedFormat.d.ts": [
+        "../node_modules/dayjs/index.d.ts"
+      ],
+      "../node_modules/dayjs/plugin/utc.d.ts": [
+        "../node_modules/dayjs/index.d.ts"
+      ],
+      "../src/index.ts": [
+        "../src/lib/formula-value.ts"
+      ],
+      "../src/lib/concatenated-text.ts": [
+        "../src/lib/compiled-expression.ts"
+      ],
+      "../src/lib/default-value.ts": [
+        "../src/lib/compiled-expression.ts"
+      ],
+      "../src/lib/formula-value.ts": [
+        "../src/lib/compiled-expression.ts"
+      ],
+      "../src/lib/formula.ts": [
+        "../src/lib/compiled-expression.ts"
+      ],
+      "../src/lib/variable.ts": [
+        "../src/lib/helpers.ts"
+      ]
+    },
+    "semanticDiagnosticsPerFile": [
+      "../node_modules/ava/index.d.ts",
+      "../node_modules/dayjs/index.d.ts",
+      "../node_modules/dayjs/locale/index.d.ts",
+      "../node_modules/dayjs/locale/types.d.ts",
+      "../node_modules/dayjs/plugin/advancedFormat.d.ts",
+      "../node_modules/dayjs/plugin/utc.d.ts",
+      "../node_modules/typescript/lib/lib.dom.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.collection.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.core.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.generator.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.iterable.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.promise.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.proxy.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.reflect.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.symbol.d.ts",
+      "../node_modules/typescript/lib/lib.es2015.symbol.wellknown.d.ts",
+      "../node_modules/typescript/lib/lib.es2016.array.include.d.ts",
+      "../node_modules/typescript/lib/lib.es2016.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.intl.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.object.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.sharedmemory.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.string.d.ts",
+      "../node_modules/typescript/lib/lib.es2017.typedarrays.d.ts",
+      "../node_modules/typescript/lib/lib.es5.d.ts",
+      "../src/index.ts",
+      "../src/lib/compiled-expression.ts",
+      "../src/lib/concatenated-text.ts",
+      "../src/lib/default-value.ts",
+      "../src/lib/formula-value.spec.ts",
+      "../src/lib/formula-value.ts",
+      "../src/lib/formula.ts",
+      "../src/lib/helpers.ts",
+      "../src/lib/variable.ts",
+      "../src/types/example.d.ts"
+    ]
+  },
+  "version": "4.0.5"
+}
