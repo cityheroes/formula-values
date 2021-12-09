@@ -1,6 +1,6 @@
 {
 	"name": "formula-values",
-	"version": "2.0.2c",
+	"version": "2.0.3",
 	"description": "A library to eval text expressions. Specially useful with Plastik",
 	"main": "build/main/index.js",
 	"typings": "build/main/index.d.ts",
