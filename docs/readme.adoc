@@ -205,3 +205,22 @@ avg(<array>)
 ----
 
 * **<array>** _[number[]:required]_ The array of values to be processed.
+
+=== formatDate
+
+Format the given `<date>` using the specified `<format>`.
+If the `<isUTC>` flag is on, the date is considered to be in UTC, so it will be cast to local datetime before displaying it.
+If the flag is off, the date is assumed to be already in local datetime.
+
+[source,text]
+----
+formatDate(<date>,<format>,<isUTC>)
+// returns the formatted date in the specified format as a string
+----
+
+* **<date>** _[string:required]_ The date to be formatted.
+* **<format>** _[string:required]_ The format to display the given date.
+It expects a string with format reference values using the same standard as momentjs.
+This standard can be found https://momentjs.com/docs/#/displaying/format/[here].
+* **<isUTC>** _[boolean:optional]_ A flag to mark if the date should be treated as UTC time or local datetime.
+When the value is not provided, its default value is `false`.
