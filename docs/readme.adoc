@@ -181,3 +181,27 @@ min(<array>)
 ----
 
 * **<array>** _[any[]:required]_ The array of elements to find the min value.
+
+=== count
+
+Gets the size of the given `<array>`.
+
+[source,text]
+----
+count(<array>)
+// returns the size of the array. 0 if array is not an actual array.
+----
+
+* **<array>** _[any[]:required]_ The array of elements to be counted.
+
+=== avg
+
+Calculates the average of the elements specified in `<array>`.
+
+[source,text]
+----
+avg(<array>)
+// returns the average of the elements in the array. 0 if the array is empty or not an actual array.
+----
+
+* **<array>** _[number[]:required]_ The array of values to be processed.
