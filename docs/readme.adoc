@@ -22,9 +22,10 @@ The available functions for a Formula are:
 
 === dateDiff
 
-Calculates the difference between two dates with the specified units. This operation is the equivalent of `<date1>-<date2>`, which will return a positive number when `<date1>` is greater than `<date2>`.
+Calculates the difference between two dates with the specified units.
+This operation is the equivalent of `<date1>-<date2>`, which will return a positive number when `<date1>` is greater than `<date2>`.
 
-[source, text]
+[source,text]
 ----
 dateDiff(<date1>, <date2>, <unit>)
 // returns an integer
@@ -35,7 +36,9 @@ dateDiff(<date1>, <date2>, <unit>)
 ** 'YYYY-MM-DD HH:mm:ss'
 ** 'HH:mm:ss'
 
-* **<unit>** _[string:optional]_ The unit to calculate the difference between dates/datetimes/times. When not specified, its default value is "seconds". Available units are:
+* **<unit>** _[string:optional]_ The unit to calculate the difference between dates/datetimes/times.
+When not specified, its default value is "seconds".
+Available units are:
 ** "years" or "Y"
 ** "months" or "M"
 ** "weeks" or "W"
@@ -43,3 +46,37 @@ dateDiff(<date1>, <date2>, <unit>)
 ** "hours" or "h"
 ** "minutes" or "m"
 ** "seconds" or "s"
+
+=== datetimeFromNow
+
+Calculates a new datetime from now.
+
+[source,text]
+----
+datetimeFromNow(<year>,<month>,<day>,<hour>,<minute>,<second>);
+// returns an ISO formatted date as a string.
+----
+
+* **<year>** _[number:optional]_ A delta to modify the year of the current date.
+If it's positive, the current year will increase.
+If it's negative, the current year will decrease.
+
+* **<month>** _[number:optional]_ A delta to modify the month of the current date.
+If it's positive, the current month will increase.
+If it's negative, the current month will decrease.
+
+* **<day>** _[number:optional]_ A delta to modify the day of the current date.
+If it's positive, the current day will increase.
+If it's negative, the current day will decrease.
+
+* **<hour>** _[number:optional]_ A delta to modify the hour of the current date.
+If it's positive, the current hour will increase.
+If it's negative, the current hour will decrease.
+
+* **<minute>** _[number:optional]_ A delta to modify the minute of the current date.
+If it's positive, the current minute will increase.
+If it's negative, the current minute will decrease.
+
+* **<second>** _[number:optional]_ A delta to modify the second of the current date.
+If it's positive, the current second will increase.
+If it's negative, the current second will decrease.
