@@ -1,0 +1,45 @@
+= Formula Values
+:toc:
+:sectnums:
+
+== Specification
+
+A Formula Value is a way to specify values for a property in different contexts.
+
+There are three types of Formula Values:
+
+- A formula, which **always** starts with '='.
+- A concatenated text, which is **always** wrapped between '{{' and '}}'.
+- A simple value, which **never** fits the formats of a formula or a concatenated text.
+
+== Formula
+
+A Formula always starts with '='.
+
+Other properties can be referenced by wrapping their path within '{{}}'.
+
+The available functions for a Formula are:
+
+=== dateDiff
+
+Calculates the difference between two dates with the specified units. This operation is the equivalent of `<date1>-<date2>`, which will return a positive number when `<date1>` is greater than `<date2>`.
+
+[source, text]
+----
+dateDiff(<date1>, <date2>, <unit>)
+// returns an integer
+----
+
+* **<date1>,<date2>** _[string:required]_ A date/datetime/time in the following formats:
+** 'YYYY-MM-DD'
+** 'YYYY-MM-DD HH:mm:ss'
+** 'HH:mm:ss'
+
+* **<unit>** _[string:optional]_ The unit to calculate the difference between dates/datetimes/times. When not specified, its default value is "seconds". Available units are:
+** "years" or "Y"
+** "months" or "M"
+** "weeks" or "W"
+** "days" or "D"
+** "hours" or "h"
+** "minutes" or "m"
+** "seconds" or "s"
