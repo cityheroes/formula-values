@@ -130,3 +130,30 @@ The behavior of the function varies according to the following values:
 ** `false`: The `<array>` is flattened at every possible level, just as https://lodash.com/docs/#flattenDeep[lodash.flattenDeep()].
 
 ** Any number >1: The `<array>` is flattend up to `<depth>` times, just as https://lodash.com/docs/#flattenDepth[lodash.flattenDepth()]
+
+=== groupConcat
+
+Performs a concatenation of the values provided in the `<array>` using `<separator>`.
+
+[source,text]
+----
+groupConcat(<array>,<separator>)
+// returns a string with the concatenated values
+----
+
+* **<array>** _any[]:required_ The array of values to be concatenated.
+
+* **<separator>** _string:optional_ The separator to use when joining the elements of `<array>`.
+When not set, its value is ', ' by default.
+
+=== concat
+
+Performs a concatenation of the values provided values.
+
+[source,text]
+----
+concat(<value1>,<value2>,...,<valueN>)
+// returns a string with the concatenated values
+----
+
+* **<valueN>** _any:required_ The set of values to be concatenated directly concatenated (no separators).
