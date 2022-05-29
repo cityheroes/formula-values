@@ -108,3 +108,25 @@ extract(<value>,<separator>,<index>)
 * **<separator>** _[string:required]_ A string used to split the provided value.
 
 * **<index>** _[number:optional]_ The index of the element to be retrieved in the value split by the separator.
+When not specified, it defaults to 0.
+
+=== flatten
+
+Flattens the given `<array>` using the specified `<depth>`.
+
+[source,text]
+----
+flatten(<array>,<depth>)
+----
+
+* **<array>** _[any[]:required]_ An array with nested arrays.
+
+* **<depth>** _[number or boolean: optional]_ The depth specification to perform the flattening.
+When not specified, its default value is set to `false`.
+The behavior of the function varies according to the following values:
+
+** `true` or `1`: The `<array>` is flattened only one level, just as https://lodash.com/docs/#flatten[lodash.flatten()].
+
+** `false`: The `<array>` is flattened at every possible level, just as https://lodash.com/docs/#flattenDeep[lodash.flattenDeep()].
+
+** Any number >1: The `<array>` is flattend up to `<depth>` times, just as https://lodash.com/docs/#flattenDepth[lodash.flattenDepth()]
