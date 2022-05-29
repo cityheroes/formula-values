@@ -157,3 +157,27 @@ concat(<value1>,<value2>,...,<valueN>)
 ----
 
 * **<valueN>** _any:required_ The set of values to be concatenated directly concatenated (no separators).
+
+=== max
+
+Finds the max value from the list of values provided in `<array>`.
+
+[source,text]
+----
+max(<array>)
+// returns the max value, undefined if <array> is empty, or null if <array> is not actually an array
+----
+
+* **<array>** _[any[]:required]_ The array of elements to find the max value.
+
+=== min
+
+Finds the min value from the list of values provided in `<array>`.
+
+[source,text]
+----
+min(<array>)
+// returns the min value, undefined if <array> is empty, or null if <array> is not actually an array
+----
+
+* **<array>** _[any[]:required]_ The array of elements to find the min value.
