@@ -5,17 +5,17 @@
 == Specification
 
 A Formula Value is a way to specify values for a property in different contexts.
+A Formula Value is a way to specify values for a property in different contexts.
 
 There are three types of Formula Values:
 
 - A formula, which **always** starts with '='.
-- A concatenated text, which is **always** wrapped between '{{' and '}}'.
+- A concatenated text, which **always** contains variable references wrapped between '{{' and '}}' and is not a formula.
 - A simple value, which **never** fits the formats of a formula or a concatenated text.
 
 == Formula
 
 A Formula always starts with '='.
-
 Other properties can be referenced by wrapping their path within '{{}}'.
 
 The available functions for a Formula are:
@@ -224,3 +224,24 @@ It expects a string with format reference values using the same standard as mome
 This standard can be found https://momentjs.com/docs/#/displaying/format/[here].
 * **<isUTC>** _[boolean:optional]_ A flag to mark if the date should be treated as UTC time or local datetime.
 When the value is not provided, its default value is `false`.
+
+== Concatenated text
+
+A concatenated text specification is a string that doesn't start with '=' and contains at least one reference to a property wrapped between '{{' and '}}'.
+
+The result of a concatenated text is evaluated by exclusively replacing property references with their referenced values.
+
+[source,text]
+----
+context:
+{
+    "first_name": "John",
+    "last_name": "Doe"
+}
+
+spec:
+"Dear {{first_name}} {{last_name}}."
+
+result:
+"Der John Doe."
+----
