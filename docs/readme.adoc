@@ -80,3 +80,15 @@ If it's negative, the current minute will decrease.
 * **<second>** _[number:optional]_ A delta to modify the second of the current date.
 If it's positive, the current second will increase.
 If it's negative, the current second will decrease.
+
+=== sum
+
+Calculates the sum of the elements in the provided array.
+
+[source,text]
+----
+sum(<values_array>);
+// returns the sum of all the values as a number.
+----
+
+* **<values_array>** _[number[]:required]_ An array of values to be summed.
