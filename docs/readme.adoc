@@ -92,3 +92,19 @@ sum(<values_array>);
 ----
 
 * **<values_array>** _[number[]:required]_ An array of values to be summed.
+
+=== extract
+
+Extracts a substring in the provided 0-based `<index>` by splitting the given string `<value>` with a `<separator>`.
+
+[source,text]
+----
+extract(<value>,<separator>,<index>)
+// returns a string
+----
+
+* **<value>** _[string:required]_ A string used as base to perform the splitting and extraction.
+
+* **<separator>** _[string:required]_ A string used to split the provided value.
+
+* **<index>** _[number:optional]_ The index of the element to be retrieved in the value split by the separator.
