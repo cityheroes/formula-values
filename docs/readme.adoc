@@ -1,0 +1,247 @@
+= Formula Values
+:toc:
+:sectnums:
+
+== Specification
+
+A Formula Value is a way to specify values for a property in different contexts.
+A Formula Value is a way to specify values for a property in different contexts.
+
+There are three types of Formula Values:
+
+- A formula, which **always** starts with '='.
+- A concatenated text, which **always** contains variable references wrapped between '{{' and '}}' and is not a formula.
+- A simple value, which **never** fits the formats of a formula or a concatenated text.
+
+== Formula
+
+A Formula always starts with '='.
+Other properties can be referenced by wrapping their path within '{{}}'.
+
+The available functions for a Formula are:
+
+=== dateDiff
+
+Calculates the difference between two dates with the specified units.
+This operation is the equivalent of `<date1>-<date2>`, which will return a positive number when `<date1>` is greater than `<date2>`.
+
+[source,text]
+----
+dateDiff(<date1>, <date2>, <unit>)
+// returns an integer
+----
+
+* **<date1>,<date2>** _[string:required]_ A date/datetime/time in the following formats:
+** 'YYYY-MM-DD'
+** 'YYYY-MM-DD HH:mm:ss'
+** 'HH:mm:ss'
+
+* **<unit>** _[string:optional]_ The unit to calculate the difference between dates/datetimes/times.
+When not specified, its default value is "seconds".
+Available units are:
+** "years" or "Y"
+** "months" or "M"
+** "weeks" or "W"
+** "days" or "D"
+** "hours" or "h"
+** "minutes" or "m"
+** "seconds" or "s"
+
+=== datetimeFromNow
+
+Calculates a new datetime from now.
+
+[source,text]
+----
+datetimeFromNow(<year>,<month>,<day>,<hour>,<minute>,<second>);
+// returns an ISO formatted date as a string.
+----
+
+* **<year>** _[number:optional]_ A delta to modify the year of the current date.
+If it's positive, the current year will increase.
+If it's negative, the current year will decrease.
+
+* **<month>** _[number:optional]_ A delta to modify the month of the current date.
+If it's positive, the current month will increase.
+If it's negative, the current month will decrease.
+
+* **<day>** _[number:optional]_ A delta to modify the day of the current date.
+If it's positive, the current day will increase.
+If it's negative, the current day will decrease.
+
+* **<hour>** _[number:optional]_ A delta to modify the hour of the current date.
+If it's positive, the current hour will increase.
+If it's negative, the current hour will decrease.
+
+* **<minute>** _[number:optional]_ A delta to modify the minute of the current date.
+If it's positive, the current minute will increase.
+If it's negative, the current minute will decrease.
+
+* **<second>** _[number:optional]_ A delta to modify the second of the current date.
+If it's positive, the current second will increase.
+If it's negative, the current second will decrease.
+
+=== sum
+
+Calculates the sum of the elements in the provided array.
+
+[source,text]
+----
+sum(<values_array>);
+// returns the sum of all the values as a number.
+----
+
+* **<values_array>** _[number[]:required]_ An array of values to be summed.
+
+=== extract
+
+Extracts a substring in the provided 0-based `<index>` by splitting the given string `<value>` with a `<separator>`.
+
+[source,text]
+----
+extract(<value>,<separator>,<index>)
+// returns a string
+----
+
+* **<value>** _[string:required]_ A string used as base to perform the splitting and extraction.
+
+* **<separator>** _[string:required]_ A string used to split the provided value.
+
+* **<index>** _[number:optional]_ The index of the element to be retrieved in the value split by the separator.
+When not specified, it defaults to 0.
+
+=== flatten
+
+Flattens the given `<array>` using the specified `<depth>`.
+
+[source,text]
+----
+flatten(<array>,<depth>)
+----
+
+* **<array>** _[any[]:required]_ An array with nested arrays.
+
+* **<depth>** _[number or boolean: optional]_ The depth specification to perform the flattening.
+When not specified, its default value is set to `false`.
+The behavior of the function varies according to the following values:
+
+** `true` or `1`: The `<array>` is flattened only one level, just as https://lodash.com/docs/#flatten[lodash.flatten()].
+
+** `false`: The `<array>` is flattened at every possible level, just as https://lodash.com/docs/#flattenDeep[lodash.flattenDeep()].
+
+** Any number >1: The `<array>` is flattend up to `<depth>` times, just as https://lodash.com/docs/#flattenDepth[lodash.flattenDepth()]
+
+=== groupConcat
+
+Performs a concatenation of the values provided in the `<array>` using `<separator>`.
+
+[source,text]
+----
+groupConcat(<array>,<separator>)
+// returns a string with the concatenated values
+----
+
+* **<array>** _any[]:required_ The array of values to be concatenated.
+
+* **<separator>** _string:optional_ The separator to use when joining the elements of `<array>`.
+When not set, its value is ', ' by default.
+
+=== concat
+
+Performs a concatenation of the values provided values.
+
+[source,text]
+----
+concat(<value1>,<value2>,...,<valueN>)
+// returns a string with the concatenated values
+----
+
+* **<valueN>** _any:required_ The set of values to be concatenated directly concatenated (no separators).
+
+=== max
+
+Finds the max value from the list of values provided in `<array>`.
+
+[source,text]
+----
+max(<array>)
+// returns the max value, undefined if <array> is empty, or null if <array> is not actually an array
+----
+
+* **<array>** _[any[]:required]_ The array of elements to find the max value.
+
+=== min
+
+Finds the min value from the list of values provided in `<array>`.
+
+[source,text]
+----
+min(<array>)
+// returns the min value, undefined if <array> is empty, or null if <array> is not actually an array
+----
+
+* **<array>** _[any[]:required]_ The array of elements to find the min value.
+
+=== count
+
+Gets the size of the given `<array>`.
+
+[source,text]
+----
+count(<array>)
+// returns the size of the array. 0 if array is not an actual array.
+----
+
+* **<array>** _[any[]:required]_ The array of elements to be counted.
+
+=== avg
+
+Calculates the average of the elements specified in `<array>`.
+
+[source,text]
+----
+avg(<array>)
+// returns the average of the elements in the array. 0 if the array is empty or not an actual array.
+----
+
+* **<array>** _[number[]:required]_ The array of values to be processed.
+
+=== formatDate
+
+Format the given `<date>` using the specified `<format>`.
+If the `<isUTC>` flag is on, the date is considered to be in UTC, so it will be cast to local datetime before displaying it.
+If the flag is off, the date is assumed to be already in local datetime.
+
+[source,text]
+----
+formatDate(<date>,<format>,<isUTC>)
+// returns the formatted date in the specified format as a string
+----
+
+* **<date>** _[string:required]_ The date to be formatted.
+* **<format>** _[string:required]_ The format to display the given date.
+It expects a string with format reference values using the same standard as momentjs.
+This standard can be found https://momentjs.com/docs/#/displaying/format/[here].
+* **<isUTC>** _[boolean:optional]_ A flag to mark if the date should be treated as UTC time or local datetime.
+When the value is not provided, its default value is `false`.
+
+== Concatenated text
+
+A concatenated text specification is a string that doesn't start with '=' and contains at least one reference to a property wrapped between '{{' and '}}'.
+
+The result of a concatenated text is evaluated by exclusively replacing property references with their referenced values.
+
+[source,text]
+----
+context:
+{
+    "first_name": "John",
+    "last_name": "Doe"
+}
+
+spec:
+"Dear {{first_name}} {{last_name}}."
+
+result:
+"Der John Doe."
+----
